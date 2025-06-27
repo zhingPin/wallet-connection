@@ -118,6 +118,6 @@ export const handleNetworkSwitch = async (
         return null;
     } finally {
         isNetworkSwitchPending = false;
-        console.log("[NetworkSwitch] Network switch process completed. Pending:", isNetworkSwitchPending);
+        console.log("Network switch process completed",);
     }
 };
