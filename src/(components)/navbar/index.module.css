@@ -3,6 +3,7 @@
     /* display: flex; */
     display: grid;
     grid-template-columns: auto 1fr;
+    padding: 20px;
 }
 
 .navigation {
