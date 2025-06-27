@@ -99,7 +99,7 @@ const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 setCurrentNetwork(networkKey);
             }
         } catch (error) {
-            console.error("Error connecting wallet:", error);
+            console.warn("[prov]Error connecting wallet:", error);
             setWalletError("Could not connect wallet.");
         }
     };

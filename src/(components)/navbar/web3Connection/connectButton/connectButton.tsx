@@ -1,15 +1,25 @@
-"use client"
-import React from 'react'
-import { useWallet } from '@/(context)/useContext/walletContext'
-import { shortenAddress } from '../../../../../utils/hooks/address'
+"use client";
+
+import React from "react";
+import { useWallet } from "@/(context)/useContext/walletContext";
+import { shortenAddress } from "../../../../../utils/hooks/address";
 
 const ConnectButton = () => {
-    const { currentAccount } = useWallet() // as WalletContextProps;
-    const account = shortenAddress(currentAccount || "");
+    const { currentAccount, handleConnectWallet } = useWallet();
+    const isConnected = currentAccount !== "";
+    const accountDisplay = isConnected ? shortenAddress(currentAccount) : "Connect Wallet";
+
+    const handleClick = async () => {
+        if (!isConnected) {
+            await handleConnectWallet();
+        }
+    };
 
     return (
-        <div>{account ? shortenAddress(account) : "Connect Wallet"}</div>
-    )
-}
+        <button onClick={handleClick}>
+            {accountDisplay}
+        </button>
+    );
+};
 
-export default ConnectButton
+export default ConnectButton;

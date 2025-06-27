@@ -46,7 +46,7 @@ export const ConnectWallet = async (): Promise<WalletData | null> => {
         const provider = new ethers.BrowserProvider(ethereum);
         return await getWalletData(accounts[0], provider, ethereum);
     } catch (error) {
-        console.error("Error connecting wallet:", error);
+        console.warn("[Con Wall]Error connecting wallet:", error);
         return null;
     }
 };

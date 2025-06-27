@@ -49,3 +49,9 @@ a {
     color-scheme: dark;
   }
 }
+
+button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}

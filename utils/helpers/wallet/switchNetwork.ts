@@ -45,25 +45,25 @@ const changeNetwork = async (networkName: string): Promise<void> => {
     try {
 
         // Attempt to switch to the network
-        await withTimeout(
-            window.ethereum.request({
-                method: "wallet_switchEthereumChain",
-                params: [{ chainId: network.chainId }],
-            }),
-            2000 // 8 seconds, adjust as needed
-        );
+        await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: network.chainId }],
+        });
+
         console.log(`Switched to network: ${networkName}`);
     } catch (error: unknown) {
+
         if (typeof error === "object" && error !== null && "code" in error) {
+
             const e = error as { code: number };
             if (e.code === 4902) {
                 console.log(`Network not found. Adding network: ${networkName}`);
                 await addNetwork(network, networkName);
             } else {
-                console.error("Error switching network:", error);
+                console.warn("Error switching network:", error);
             }
         } else {
-            console.error("Unknown error switching network:", error);
+            console.warn("Unknown error switching network:", error);
         }
     }
 }
