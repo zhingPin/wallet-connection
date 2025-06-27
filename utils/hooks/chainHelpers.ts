@@ -1,6 +1,20 @@
 import { networkConfig } from "../lib/chains/networkConfig";
 import { networkInfo } from "../lib/chains/networkInfo";
 
+// Get the current network ID
+export const getCurrentNetwork = async (): Promise<number | null> => {
+    try {
+        if (!window.ethereum) throw new Error("No crypto wallet found");
+
+        const chainId = await window.ethereum.request({ method: "net_version" });
+        return Number(chainId); // Return the chain ID as a number
+    } catch (err) {
+        console.error("Error fetching current network:", (err as Error).message);
+        return null;
+    }
+};
+
+
 // Accepts decimal or hex string, returns the network key or undefined
 export function getNetworkKeyFromChainId(chainId: string | number): string | undefined {
     // Normalize to hex string (e.g., "0x13881")

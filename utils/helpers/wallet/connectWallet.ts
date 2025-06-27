@@ -1,5 +1,4 @@
 import { ethers } from "ethers";
-import { networkConfig } from "../../lib/chains/networkConfig";
 
 export type EthAddress = string & { readonly __brand: unique symbol };
 
