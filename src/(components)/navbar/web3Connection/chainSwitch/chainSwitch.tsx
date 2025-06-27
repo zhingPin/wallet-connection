@@ -51,16 +51,15 @@ const ChainSwitch = () => {
             trigger={
                 <div className={styles.chain_switch} title="Select a chain">
                     <div className={styles.greyBackground}>
-                        {networkLogo && (
-                            <Image
-                                className={styles.chain}
-                                src={networkLogo}
-                                height={25}
-                                width={25}
-                                alt={`${networkInfo[selectedKey]?.displayName || "Chain"} logo`}
-                                title={`${networkInfo[selectedKey]?.displayName || "Chain"} logo`}
-                            />
-                        )}
+                        <Image
+                            className={styles.chain}
+                            src={networkLogo || networkInfo[DEFAULT_NETWORK]?.iconUrls?.[0]}
+                            height={25}
+                            width={25}
+                            alt={`${networkInfo[selectedKey]?.displayName || "Chain"} logo`}
+                            title={`${networkInfo[selectedKey]?.displayName || "Chain"} logo`}
+                        />
+
                     </div>
                     <FaChevronDown className={styles.chevron} />
                 </div>
