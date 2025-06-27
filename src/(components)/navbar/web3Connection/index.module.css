@@ -1,11 +1,8 @@
 .connect_ui {
     display: flex;
-    /* align-items: center; */
     background-color: var(--primary-color);
     color: var(--main-text-color);
     display: flex;
-    /* padding: .3rem; */
-    gap: .3rem;
     border-radius: 3rem;
     align-items: center;
     border: 1.7px solid white;
@@ -13,12 +10,11 @@
     align-self: center;
     cursor: pointer;
     height: 34px;
-    overflow: hidden;
 }
 
 .is_connected {
     text-align: center;
     justify-content: center;
-    padding: .3rem;
+    padding: .3rem 1rem;
     min-width: 100px;
 }
