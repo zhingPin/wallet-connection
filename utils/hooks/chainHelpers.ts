@@ -14,7 +14,6 @@ export const getCurrentNetwork = async (): Promise<number | null> => {
     }
 };
 
-
 // Accepts decimal or hex string, returns the network key or undefined
 export function getNetworkKeyFromChainId(chainId: string | number): string | undefined {
     // Normalize to hex string (e.g., "0x13881")
