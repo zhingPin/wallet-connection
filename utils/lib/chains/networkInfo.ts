@@ -25,15 +25,15 @@ export const networkInfo: Record<string, NetworkInfoProps> = {
         active: true,
 
     },
-    arb: {
+    arbitrum_one: {
         iconUrls: [arb_logo],
         displayName: "Arbitrum",
         contracts: {
-            nft: "",
-            marketplace: ""
+            nft: "0xBcB215A68677cB6D5aA0481B99Cb7190C937A0f0",
+            marketplace: "0xF472dDDC6E7aCE2CB68bad4710d125429Ff918Ec"
         },
         environment: "mainnet",
-        active: false,
+        active: true,
 
     },
     polygon_amoy: {
@@ -51,11 +51,11 @@ export const networkInfo: Record<string, NetworkInfoProps> = {
         iconUrls: [bsc_logo],
         displayName: "BSC",
         contracts: {
-            nft: "",
-            marketplace: ""
+            nft: "0xf78cA5Dad15EEf6AC6c2Edd7EbC12ED91F6A634a",
+            marketplace: "0x3A28217Ffea5e0Cd4C3F5e3A895f5D9Da8D02c6e"
         },
         environment: "mainnet",
-        active: false,
+        active: true,
     },
     base: {
         iconUrls: [base_logo],
