@@ -18,7 +18,7 @@ const ChainSwitch = () => {
     const visibleNetworks = getVisibleNetworks();
 
     const selectedKey = currentNetwork || DEFAULT_NETWORK;
-    const networkLogo = networkInfo[DEFAULT_NETWORK]?.iconUrls?.[0] || networkInfo[selectedKey]?.iconUrls?.[0];
+    const networkLogo = networkInfo[selectedKey]?.iconUrls?.[0];
 
     const switchNetworks = async (chainKey: string) => {
         console.log(`[chainSwitch] network: ${currentNetwork}`);
