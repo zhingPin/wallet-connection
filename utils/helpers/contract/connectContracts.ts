@@ -1,0 +1,1 @@
+type ContractType = "nft" | "marketplace";

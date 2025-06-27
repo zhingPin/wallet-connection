@@ -1,0 +1,18 @@
+.navbar {
+    position: sticky;
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.navigation {
+    justify-content: flex-end;
+}
+
+.navigation,
+.logo {
+    display: flex;
+    align-items: center;
+    /* gap: var(--component-gap); */
+    gap: 1rem;
+}
