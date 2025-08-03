@@ -1,9 +1,11 @@
 .navbar {
-    position: sticky;
+    /* position: sticky; */
     /* display: flex; */
     display: grid;
     grid-template-columns: auto 1fr;
-    padding: 20px;
+    padding: 0px 20px;
+    background: azure;
+    z-index: 1000;
 }
 
 .navigation {

@@ -6,7 +6,9 @@ import ChainSwitch from './chainSwitch/chainSwitch'
 const Web3Connection = () => {
     return (
         <div className={styles.connect_ui}>
-            <div className={styles.is_connected}><ConnectButton /></div>
+            <div className={styles.is_connected}>
+                <ConnectButton />
+            </div>
             <ChainSwitch />
         </div>
     )

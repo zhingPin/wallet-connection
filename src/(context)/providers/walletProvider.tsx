@@ -28,7 +28,7 @@ const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
         } else {
             setCurrentAccount("");
             setCurrentAccountBalance("");
-            setCurrentNetwork("");
+            setCurrentNetwork(DEFAULT_NETWORK);
         }
     }, []);
 
@@ -115,6 +115,7 @@ const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 currentNetwork,
                 setCurrentNetwork,
                 handleConnectWallet,
+                CheckIfWalletConnected,
                 walletError,
                 setWalletError,
 

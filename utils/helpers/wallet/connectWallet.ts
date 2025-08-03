@@ -1,12 +1,8 @@
 import { ethers } from "ethers";
+import { WalletData } from "../../../types/contextPropTypes";
 
 export type EthAddress = string & { readonly __brand: unique symbol };
 
-interface WalletData {
-    balance: string;
-    address: EthAddress;
-    chainId: string;
-}
 
 async function getWalletData(address: string, provider: ethers.BrowserProvider, ethereum: any): Promise<WalletData> {
     const balanceInWei = await provider.getBalance(address);
@@ -21,7 +17,7 @@ export const CheckIfWalletConnected = async (): Promise<WalletData | null> => {
         if (typeof window === "undefined") return null;
         const { ethereum } = window;
         if (!ethereum) return null;
-
+        console.log(ethereum)
         const accounts: string[] = await ethereum.request({ method: "eth_accounts" });
         if (accounts.length === 0) return null;
 

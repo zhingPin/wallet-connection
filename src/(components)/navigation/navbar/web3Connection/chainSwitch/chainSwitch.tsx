@@ -5,9 +5,10 @@ import { DEFAULT_NETWORK } from '@/(context)/const';
 import Dropdown from '@/(components)/dropdown/dropdown';
 import { FaChevronDown } from "react-icons/fa";
 import { useWallet } from '@/(context)/useContext/walletContext';
-import { networkInfo } from '../../../../../utils/lib/chains/networkInfo';
-import { getVisibleNetworks } from '../../../../../utils/hooks/chainHelpers';
-import { handleNetworkSwitch } from '../../../../../utils/helpers/wallet/switchNetwork';
+import { getVisibleNetworks } from '../../../../../../utils/hooks/chainHelpers';
+import { networkInfo } from '../../../../../../utils/lib/chains/networkInfo';
+import { handleNetworkSwitch } from '../../../../../../utils/helpers/wallet/switchNetwork';
+
 
 
 const ChainSwitch = () => {

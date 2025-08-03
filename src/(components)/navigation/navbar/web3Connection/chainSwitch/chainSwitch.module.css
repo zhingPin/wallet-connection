@@ -2,8 +2,7 @@
     display: flex;
     align-items: center;
     min-height: 100%;
-    anchor-name: --chain-switch;
-    z-index: 10000;
+    /* anchor-name: --chain-switch; */
     position: relative;
 }
 
@@ -21,6 +20,7 @@
     cursor: pointer;
     height: 34px;
     width: 50px;
+    z-index: 10000;
 }
 
 .greyBackground,
@@ -44,14 +44,14 @@
 }
 
 .menu_popover {
-    padding: 0;
+    /* padding: 0; */
     border-radius: 0 0 5px 5px;
     border: 3px solid var(--text-color, #fff);
     border-top: none;
-    background-color: var(--primary-color);
+    border: 3px solid var(--text-color, #fff);
     font-size: 1rem;
 
-    z-index: 9999;
+    z-index: 100001;
     /* Ensure it's above other elements */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     /* Add some shadow for clarity */
@@ -61,12 +61,14 @@
     min-height: 100%;
     /* Optional minimum width for consistency */
 
-    inset: auto;
+    /* inset: auto; */
     position: absolute;
     position-anchor: --chain-switch;
-    top: anchor(bottom);
+    top: 100%;
     right: anchor(right);
-    overflow: hidden;
+    /* overflow: hidden; */
+    background-color: #fff;
+    z-index: 10;
 }
 
 

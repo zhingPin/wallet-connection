@@ -1,7 +1,16 @@
+import { EthAddress } from "../utils/helpers/wallet/connectWallet";
+
+export interface WalletData {
+    balance: string;
+    address: EthAddress;
+    chainId: string;
+}
+
 export interface WalletContextProps {
     currentAccount: string;
     setCurrentAccount: React.Dispatch<React.SetStateAction<string>>;
     accountBalance: string;
+    CheckIfWalletConnected: () => Promise<WalletData | null>;
     handleConnectWallet: () => Promise<void>;
     currentNetwork: string;
     setCurrentNetwork: React.Dispatch<React.SetStateAction<string>>;

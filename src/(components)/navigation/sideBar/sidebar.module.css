@@ -1,0 +1,9 @@
+.sidebar {
+    background-color: rgb(165, 249, 221);
+    transition: transform 1s ease-out;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    min-width: 130px;
+    position: sticky;
+    z-index: 10;
+}

@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <main className={styles.page}>
       <main className={styles.main}>
         <Image
           className={styles.logo}
@@ -90,6 +90,6 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
-    </div>
+    </main>
   );
 }

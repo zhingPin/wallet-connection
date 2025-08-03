@@ -1,6 +1,6 @@
 .connect_ui {
     display: flex;
-    background-color: var(--primary-color);
+    background-color: white;
     color: var(--main-text-color);
     display: flex;
     border-radius: 3rem;
