@@ -9,14 +9,16 @@ const ConnectButton = () => {
     const isConnected = currentAccount !== "";
     const accountDisplay = isConnected ? shortenAddress(currentAccount) : "Connect Wallet";
 
-    const handleClick = async () => {
-        if (!isConnected) {
-            await handleConnectWallet();
-        }
-    };
+    // const handleClick = async () => {
+    //     if (!isConnected) {
+    //         await handleConnectWallet();
+    //     }
+    // };
 
     return (
-        <button onClick={handleClick}>
+        // <button onClick={handleClick}>
+        <button >
+
             {accountDisplay}
         </button>
     );
