@@ -9,12 +9,11 @@ import { getNetworkKeyFromChainId, getVisibleNetworks } from '../../../../../../
 import { networkInfo } from '../../../../../../utils/lib/chains/networkInfo';
 import { handleNetworkSwitch } from '../../../../../../utils/helpers/wallet/switchNetwork';
 import { useCallback, useEffect } from 'react';
-import { CheckIfWalletConnected } from '../../../../../../utils/helpers/wallet/connectWallet';
 
 
 
 const ChainSwitch = () => {
-    const { currentNetwork, setCurrentNetwork, currentAccount, handleConnectWallet, setCurrentAccount,
+    const { CheckIfWalletConnected, currentNetwork, setCurrentNetwork, currentAccount, handleConnectWallet, setCurrentAccount,
         setCurrentAccountBalance,
     } = useWallet();
 
@@ -25,44 +24,44 @@ const ChainSwitch = () => {
     const selectedKey = currentNetwork || DEFAULT_NETWORK;
     const networkLogo = networkInfo[selectedKey]?.iconUrls?.[0];
 
-    // // const init = useCallback(async () => {
-    // //     const walletData = await CheckIfWalletConnected();
+    const init = useCallback(async () => {
+        const walletData = await CheckIfWalletConnected();
 
-    // //     if (walletData) {
-    // //         const networkKey = getNetworkKeyFromChainId(walletData.chainId);
-    // //         setCurrentAccount(walletData.address);
-    // //         setCurrentAccountBalance(walletData.balance);
-    // //         setCurrentNetwork(networkKey ?? "");
-    // //     } else {
-    // //         setCurrentAccount("");
-    // //         setCurrentAccountBalance("");
-    // //         setCurrentNetwork(DEFAULT_NETWORK);
-    // //     }
-    // // }, []);
+        if (walletData) {
+            const networkKey = getNetworkKeyFromChainId(walletData.chainId);
+            setCurrentAccount(walletData.address);
+            setCurrentAccountBalance(walletData.balance);
+            setCurrentNetwork(networkKey ?? "");
+        } else {
+            setCurrentAccount("");
+            setCurrentAccountBalance("");
+            setCurrentNetwork(DEFAULT_NETWORK);
+        }
+    }, []);
 
-    // // useEffect(() => {
-    // //     init();
-    // // }, [init]); // Only run once on mount
+    useEffect(() => {
+        init();
+    }, [init]); // Only run once on mount
 
-    // useEffect(() => {
-    //     if (typeof window.ethereum !== "undefined") {
-    //         const handleAccountsChanged = () => {
-    //             init(); // re-run full sync
-    //         };
+    useEffect(() => {
+        if (typeof window.ethereum !== "undefined") {
+            const handleAccountsChanged = () => {
+                init(); // re-run full sync
+            };
 
-    //         const handleChainChanged = () => {
-    //             init(); // re-run full sync
-    //         };
+            const handleChainChanged = () => {
+                init(); // re-run full sync
+            };
 
-    //         window.ethereum.on("accountsChanged", handleAccountsChanged);
-    //         window.ethereum.on("chainChanged", handleChainChanged);
+            window.ethereum.on("accountsChanged", handleAccountsChanged);
+            window.ethereum.on("chainChanged", handleChainChanged);
 
-    //         return () => {
-    //             window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
-    //             window.ethereum.removeListener("chainChanged", handleChainChanged);
-    //         };
-    //     }
-    // }, [init]); // only once on mount
+            return () => {
+                window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
+                window.ethereum.removeListener("chainChanged", handleChainChanged);
+            };
+        }
+    }, [init]); // only once on mount
 
     const switchNetworks = async (chainKey: string) => {
         console.log(`[chainSwitch] network: ${currentNetwork}`);
