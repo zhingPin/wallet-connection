@@ -5,14 +5,18 @@ import { DEFAULT_NETWORK } from '@/(context)/const';
 import Dropdown from '@/(components)/dropdown/dropdown';
 import { FaChevronDown } from "react-icons/fa";
 import { useWallet } from '@/(context)/useContext/walletContext';
-import { getVisibleNetworks } from '../../../../../../utils/hooks/chainHelpers';
+import { getNetworkKeyFromChainId, getVisibleNetworks } from '../../../../../../utils/hooks/chainHelpers';
 import { networkInfo } from '../../../../../../utils/lib/chains/networkInfo';
 import { handleNetworkSwitch } from '../../../../../../utils/helpers/wallet/switchNetwork';
+import { useCallback, useEffect } from 'react';
+import { CheckIfWalletConnected } from '../../../../../../utils/helpers/wallet/connectWallet';
 
 
 
 const ChainSwitch = () => {
-    const { currentNetwork, setCurrentNetwork, currentAccount, handleConnectWallet } = useWallet();
+    const { currentNetwork, setCurrentNetwork, currentAccount, handleConnectWallet, setCurrentAccount,
+        setCurrentAccountBalance,
+    } = useWallet();
 
     const isConnected = currentAccount !== "";
 
@@ -29,6 +33,45 @@ const ChainSwitch = () => {
             await handleConnectWallet(); // Optional: auto-connect
             return;
         }
+
+        const init = useCallback(async () => {
+            const walletData = await CheckIfWalletConnected();
+
+            if (walletData) {
+                const networkKey = getNetworkKeyFromChainId(walletData.chainId);
+                setCurrentAccount(walletData.address);
+                setCurrentAccountBalance(walletData.balance);
+                setCurrentNetwork(networkKey ?? "");
+            } else {
+                setCurrentAccount("");
+                setCurrentAccountBalance("");
+                setCurrentNetwork(DEFAULT_NETWORK);
+            }
+        }, []);
+
+        useEffect(() => {
+            init();
+        }, [init]); // Only run once on mount
+
+        useEffect(() => {
+            if (typeof window.ethereum !== "undefined") {
+                const handleAccountsChanged = () => {
+                    init(); // re-run full sync
+                };
+
+                const handleChainChanged = () => {
+                    init(); // re-run full sync
+                };
+
+                window.ethereum.on("accountsChanged", handleAccountsChanged);
+                window.ethereum.on("chainChanged", handleChainChanged);
+
+                return () => {
+                    window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
+                    window.ethereum.removeListener("chainChanged", handleChainChanged);
+                };
+            }
+        }, [init]); // only once on mount
 
         try {
             const switched = await handleNetworkSwitch(chainKey);

@@ -9,6 +9,7 @@ export interface WalletData {
 export interface WalletContextProps {
     currentAccount: string;
     setCurrentAccount: React.Dispatch<React.SetStateAction<string>>;
+    setCurrentAccountBalance: React.Dispatch<React.SetStateAction<string>>;
     accountBalance: string;
     CheckIfWalletConnected: () => Promise<WalletData | null>;
     handleConnectWallet: () => Promise<void>;

@@ -4,6 +4,7 @@ import styles from './chatInput.module.css';
 import SubmitBtn from './submitBtn/submitBtn';
 import { useChat } from '@/(context)/useContext/chatContext';
 import { Message, StructuredContent } from '@/(context)/providers/chatProvider';
+import { createMessage } from '../../../../ai/express-api/getMessages';
 
 type ChatInputProps = {
     chatId: string;
@@ -20,12 +21,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ chatId }) => {
         setIsLoading(true);
 
         const structuredContent: StructuredContent[] = [
-            {
-                type: "text",
-                text: {
-                    value: input,
-                },
-            }
+            { type: "text", text: { value: input } }
         ];
 
         const userMsg: Message = {
@@ -38,16 +34,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ chatId }) => {
         addMessage(userMsg);
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_EXPRESS_TEST__BASE_URL}/api/v1/chat/${chatId}/send`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ content: input, sender: "user" }),
-            });
-
-            if (!res.ok) {
-                console.error("Failed to send message");
-                return;
-            }
+            await createMessage(input, chatId);
 
             console.log("✅ Message sent. Begin polling...");
 

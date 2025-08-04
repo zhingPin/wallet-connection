@@ -26,7 +26,7 @@ export const getAllMessages = async (threadId: string): Promise<Message[]> => {
 
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_EXPRESS_TEST__BASE_URL}/api/v1/thread/${threadId}`
+            `${process.env.EXPRESS_TEST_BASE_URL}/api/v1/thread/${threadId}`
         );
         const data = await res.json();
         // console.log("Received data:", data); // Debugging: log the received data
@@ -38,7 +38,7 @@ export const getAllMessages = async (threadId: string): Promise<Message[]> => {
 };
 export const getAssistants = async (): Promise<Assistant[]> => {
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_EXPRESS_TEST__BASE_URL}/api/v1/assistants`,
+        `${process.env.EXPRESS_TEST_BASE_URL}/api/v1/assistants`,
         { cache: "no-store" }
     );
     const data = await res.json();
@@ -61,7 +61,7 @@ export const getThreadsByAssistant = async (assistantId: string) => {
     }
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_EXPRESS_TEST__BASE_URL}/api/v1/thread/${assistantId}/thread`
+            `${process.env.EXPRESS_TEST_BASE_URL}/api/v1/thread/${assistantId}/thread`
         );
         const data = await res.json();
         console.log("Received thread data:", data);
@@ -78,7 +78,7 @@ export const getThreadsByAssistant = async (assistantId: string) => {
 export const createMessage = async (content: string, threadId: string) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_EXPRESS_TEST__BASE_URL}/api/v1/chat/${threadId}/send`,
+            `${process.env.EXPRESS_TEST_BASE_URL}/api/v1/chat/${threadId}/send`,
             {
                 method: "POST",
                 headers: {
@@ -109,7 +109,7 @@ export const getResponseStream = async (
 ) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_EXPRESS_TEST__BASE_URL}/api/v1/chat/${threadId}/chunks`
+            `${process.env.EXPRESS_TEST_BASE_URL}/api/v1/chat/${threadId}/chunks`
         );
 
         if (!res.ok || !res.body) throw new Error("Failed to open SSE stream");

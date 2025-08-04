@@ -48,12 +48,9 @@ const addNetwork = async (network: NetworkConfigProps, networkName: string): Pro
     try {
         await window.ethereum.request({
             method: "wallet_addEthereumChain",
-            params: [
-                {
-                    network
-                },
-            ],
+            params: [network],  // Pass the network config directly
         });
+
         console.log(`Added and switched to network: ${networkName}`);
     } catch (error) {
         console.error("Error adding network:", error);
