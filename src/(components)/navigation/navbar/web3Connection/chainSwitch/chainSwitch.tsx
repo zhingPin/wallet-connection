@@ -25,6 +25,45 @@ const ChainSwitch = () => {
     const selectedKey = currentNetwork || DEFAULT_NETWORK;
     const networkLogo = networkInfo[selectedKey]?.iconUrls?.[0];
 
+    const init = useCallback(async () => {
+        const walletData = await CheckIfWalletConnected();
+
+        if (walletData) {
+            const networkKey = getNetworkKeyFromChainId(walletData.chainId);
+            setCurrentAccount(walletData.address);
+            setCurrentAccountBalance(walletData.balance);
+            setCurrentNetwork(networkKey ?? "");
+        } else {
+            setCurrentAccount("");
+            setCurrentAccountBalance("");
+            setCurrentNetwork(DEFAULT_NETWORK);
+        }
+    }, []);
+
+    useEffect(() => {
+        init();
+    }, [init]); // Only run once on mount
+
+    useEffect(() => {
+        if (typeof window.ethereum !== "undefined") {
+            const handleAccountsChanged = () => {
+                init(); // re-run full sync
+            };
+
+            const handleChainChanged = () => {
+                init(); // re-run full sync
+            };
+
+            window.ethereum.on("accountsChanged", handleAccountsChanged);
+            window.ethereum.on("chainChanged", handleChainChanged);
+
+            return () => {
+                window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
+                window.ethereum.removeListener("chainChanged", handleChainChanged);
+            };
+        }
+    }, [init]); // only once on mount
+
     const switchNetworks = async (chainKey: string) => {
         console.log(`[chainSwitch] network: ${currentNetwork}`);
         console.log(`[chainSwitch] account: ${currentAccount}`);
@@ -34,44 +73,7 @@ const ChainSwitch = () => {
             return;
         }
 
-        const init = useCallback(async () => {
-            const walletData = await CheckIfWalletConnected();
 
-            if (walletData) {
-                const networkKey = getNetworkKeyFromChainId(walletData.chainId);
-                setCurrentAccount(walletData.address);
-                setCurrentAccountBalance(walletData.balance);
-                setCurrentNetwork(networkKey ?? "");
-            } else {
-                setCurrentAccount("");
-                setCurrentAccountBalance("");
-                setCurrentNetwork(DEFAULT_NETWORK);
-            }
-        }, []);
-
-        useEffect(() => {
-            init();
-        }, [init]); // Only run once on mount
-
-        useEffect(() => {
-            if (typeof window.ethereum !== "undefined") {
-                const handleAccountsChanged = () => {
-                    init(); // re-run full sync
-                };
-
-                const handleChainChanged = () => {
-                    init(); // re-run full sync
-                };
-
-                window.ethereum.on("accountsChanged", handleAccountsChanged);
-                window.ethereum.on("chainChanged", handleChainChanged);
-
-                return () => {
-                    window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
-                    window.ethereum.removeListener("chainChanged", handleChainChanged);
-                };
-            }
-        }, [init]); // only once on mount
 
         try {
             const switched = await handleNetworkSwitch(chainKey);

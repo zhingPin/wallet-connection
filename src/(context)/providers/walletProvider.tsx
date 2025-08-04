@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, createContext, useCallback } from "react";
+import { useState, createContext } from "react";
 import { WalletContextProps } from "../../../types/contextPropTypes";
 import { CheckIfWalletConnected, ConnectWallet } from "../../../utils/helpers/wallet/connectWallet";
 import { getNetworkKeyFromChainId } from "../../../utils/hooks/chainHelpers";
