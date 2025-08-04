@@ -1,5 +1,5 @@
 import React from 'react'
-import { Assistant, getAssistants } from '../../../../ai/express-api/getMessages';
+import { Assistant, getAssistants } from '../../api/getMessages';
 import Link from 'next/link';
 
 const Page = async () => {

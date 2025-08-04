@@ -26,10 +26,12 @@ export const getAllMessages = async (threadId: string): Promise<Message[]> => {
 
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_EXPRESS_TEST_BASE_URL}/api/v1/thread/${threadId}`
-        );
-        const data = await res.json();
-        // console.log("Received data:", data); // Debugging: log the received data
+            // `${process.env.NEXT_PUBLIC_EXPRESS_TEST_BASE_URL}/api/v1/thread/${threadId}`
+            "http://express-test-n1wyhprwg-zhingpins-projects.vercel.app/api/v1/thread/${threadId}");
+        const text = await res.text();
+        console.log("[fetch debug] Raw response text:", text);
+        const data = JSON.parse(text); // This is where it's failing
+        console.log("Received data:", data); // Debugging: log the received data
         return data.status === "success" ? data.data.messages : [];
     } catch (error) {
         console.error("Error fetching messages:", error);

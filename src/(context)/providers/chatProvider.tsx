@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useState, ReactNode, FC } from "react";
-import { createMessage } from "../../../ai/express-api/getMessages";
+import { createMessage } from "../../app/api/getMessages";
 
 // 1. Define Message type
 export interface StructuredContent {

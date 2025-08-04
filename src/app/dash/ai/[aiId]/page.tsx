@@ -1,5 +1,5 @@
 import React from 'react'
-import { getThreadsByAssistant } from '../../../../../ai/express-api/getMessages';
+import { getThreadsByAssistant } from '../../../api/getMessages';
 import styles from "./page.module.css"
 import Link from 'next/link';
 type Props = {

@@ -3,7 +3,7 @@
 import React from "react";
 import { useWallet } from "@/(context)/useContext/walletContext";
 import { shortenAddress } from "../../../../../../utils/hooks/address";
-// hi
+
 const ConnectButton = () => {
     const { currentAccount, handleConnectWallet } = useWallet();
     const isConnected = currentAccount !== "";

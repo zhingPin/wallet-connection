@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './chatWindow.module.css';
 import ChatBubble from './chatBubble/chatBubble';
-import { getResponseStream } from '../../../../ai/express-api/getMessages';
+import { getResponseStream } from '../../../app/api/getMessages';
 import { useChat } from '@/(context)/useContext/chatContext';
 import { Message } from '@/(context)/providers/chatProvider';
 

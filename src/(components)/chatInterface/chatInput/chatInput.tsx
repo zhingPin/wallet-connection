@@ -4,7 +4,7 @@ import styles from './chatInput.module.css';
 import SubmitBtn from './submitBtn/submitBtn';
 import { useChat } from '@/(context)/useContext/chatContext';
 import { Message, StructuredContent } from '@/(context)/providers/chatProvider';
-import { createMessage } from '../../../../ai/express-api/getMessages';
+import { createMessage } from '../../../app/api/getMessages';
 
 type ChatInputProps = {
     chatId: string;

@@ -2,7 +2,7 @@ import ChatWindow from './chatWindow/chatWindow';
 import ChatInput from './chatInput/chatInput';
 import styles from './chatInterface.module.css';
 import { ChatProvider, Message, StructuredContent } from '@/(context)/providers/chatProvider';
-import { getAllMessages } from '../../../ai/express-api/getMessages';
+import { getAllMessages } from '../../app/api/getMessages';
 
 type ChatInterfaceProps = {
     chatId: string;
