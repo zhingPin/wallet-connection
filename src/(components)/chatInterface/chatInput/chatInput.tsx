@@ -30,7 +30,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ chatId }) => {
             content: structuredContent,
             timestamp: new Date().toISOString(),
         };
-        // hi
+
         addMessage(userMsg);
 
         try {
