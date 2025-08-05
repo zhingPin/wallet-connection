@@ -26,12 +26,19 @@ export const getAllMessages = async (threadId: string): Promise<Message[]> => {
 
     try {
         const res = await fetch(
-            // `${process.env.NEXT_PUBLIC_EXPRESS_TEST_BASE_URL}/api/v1/thread/${threadId}`
-            "http://express-test-n1wyhprwg-zhingpins-projects.vercel.app/api/v1/thread/${threadId}");
+            `${process.env.NEXT_PUBLIC_EXPRESS_TEST_BASE_URL}/api/v1/thread/${threadId}`, {
+            headers: {
+                'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
+            },
+            // cache: "no-store"
+        });
+
+        console.log("[fetch debug] Status:", res.status);
+        console.log("[fetch debug] Headers:", res.headers.get("content-type"));
         const text = await res.text();
-        console.log("[fetch debug] Raw response text:", text);
+        // console.log("[fetch debug] Raw response text:", text);
         const data = JSON.parse(text); // This is where it's failing
-        console.log("Received data:", data); // Debugging: log the received data
+        // console.log("Received data:", data); // Debugging: log the received data
         return data.status === "success" ? data.data.messages : [];
     } catch (error) {
         console.error("Error fetching messages:", error);
@@ -40,8 +47,13 @@ export const getAllMessages = async (threadId: string): Promise<Message[]> => {
 };
 export const getAssistants = async (): Promise<Assistant[]> => {
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_EXPRESS_TEST_BASE_URL}/api/v1/assistants`,
-        { cache: "no-store" }
+        `${process.env.EXPRESS_TEST_BASE_URL}/api/v1/assistants`, // No NEXT_PUBLIC_ needed
+        {
+            headers: {
+                'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
+            },
+            cache: "no-store"
+        }
     );
     const data = await res.json();
 
@@ -63,7 +75,12 @@ export const getThreadsByAssistant = async (assistantId: string) => {
     }
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_EXPRESS_TEST_BASE_URL}/api/v1/thread/${assistantId}/thread`
+            `${process.env.NEXT_PUBLIC_EXPRESS_TEST_BASE_URL}/api/v1/thread/${assistantId}/thread`,
+            {
+                headers: {
+                    'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
+                }
+            }
         );
         const data = await res.json();
         console.log("Received thread data:", data);
@@ -85,6 +102,7 @@ export const createMessage = async (content: string, threadId: string) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
                 },
                 body: JSON.stringify({ content }), // You can pass additional data like `assistant` if needed
             }
@@ -111,7 +129,12 @@ export const getResponseStream = async (
 ) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_EXPRESS_TEST_BASE_URL}/api/v1/chat/${threadId}/chunks`
+            `${process.env.NEXT_PUBLIC_EXPRESS_TEST_BASE_URL}/api/v1/chat/${threadId}/chunks`, {
+            headers: {
+                'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
+            },
+            cache: "no-store"
+        }
         );
 
         if (!res.ok || !res.body) throw new Error("Failed to open SSE stream");
